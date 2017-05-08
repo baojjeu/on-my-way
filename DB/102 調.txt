@@ -1,51 +1,65 @@
-一、想廢話
-（一）關聯式資料庫系統（Relational Database System）中的鍵限制（Key constraint）必須
-     符合以下兩項條件：
-     1. 唯一性
-        唯一性的定義為一屬性可決定其他屬性，便稱之。例如：以下 Employee 關聯，其屬性為
+一、
+（一）關聯式資料庫系統（Relational Database System）中的鍵限制（Key constraint）為針對關
+     聯中「可形成主鍵」的所有鍵必須符合以下兩項條件：
+     1. 唯一性（Uniqueness）
+        兩個不同的值組（Tuple）不可有重複的鍵值。例如：以下 Employee 關聯，其綱目為
         (id, name, birthdate, department_id)，分別是員工編號、姓名、生日、部門代號，
-        而屬性 id 能夠決定其他屬性，意即：知道該員工 id，就可進一步獲得剩下的資料，我們說
-        屬性 id 符合唯一性。
-     2. 最小性
-        最小性的定義為超鍵（Super Key）的最小集合，例如：以上的關聯，其超鍵之一
+        主鍵為 { id }，若存在兩個值組其擁有相同的 id，則違反關鍵限制。
+     2. 最小性（Irreducibility）
+        指的是超鍵（Super Key）的最少集合，例如：以上的關聯，其超鍵之一
         { id, name } 就無符合最小性，因為不論有無存在 name 屬性，只要透過 id 屬性，就
         可獲得該員工其他資料，因此超鍵 { id } 即符合關鍵限制。
 （二）數學集合論
+     關鍵（key）為：關聯中符合關鍵限制（key constraint）的屬性子集合，而其為值域的子集。在
+     一個關聯 R 的關聯案例 r(R) 中任兩值組 tuple1 和 tuple2 的超鍵屬性值都不會一樣，即
+     tuple1[SK] ≠ tuple2[SK]。（神秘答案）
 
-二、想廢話
+
+二、
 （一）若且唯若一關聯其為 1NF，則其符合以下條件：
-     1. 所有屬性皆為基元值
-        意即所有的屬性皆為不可被分割成其他屬性，例如：Employee 關聯，其中屬性 birthday
-        還能被分割成 (birth_year, birth_month, birth_day)，故不符合 1NF。
-     2. 不存在多值屬性
-        意即所有的屬性皆為單一的值組（Tuple），例如：以下 Project 關聯表即存在多值屬性
-        （畫圖），修改為右側關聯即符合 1NF。
+     所有屬性的值皆為基元值（Atomic value），意即每一列與每一行的交會處，只能剛好是一個值，
+     不能是一組值，也可以說，不能再被分割的值。例如：有一 Employee 關聯，其中 name 屬性可再
+     分割為 first_name 與 last_name，非基元值，因此也非 1NF。
+
 （二）1. 局部相依（Partial Dependency）
-        指的是一關聯中，部分主鍵可決定其他非鍵值屬性，例如：有一關聯 R(A, B, C, D)，
-        主鍵為 { A, B } 其功能相依（Function Dependency）為 { AB -> C }, { B -> D }
-        則我們稱屬性 D 局部相依於主鍵 { A, B }。
+        指的是一關聯中，主鍵的子集合可決定其他非鍵值屬性，例如：有一關聯綱目 R(A, B, C, D)
+        ，主鍵為 { A, B } 其功能相依（Function Dependency）= { AB -> C, B -> D }
+        則我們稱屬性 D 局部相依於主鍵之子集合 B。換句話說，功能相依的左邊為主鍵的子集合，而
+        右邊為非鍵值屬性。
      2. 與 2NF 之關係
-        2NF 定義：若且唯若一關聯為 1NF，且無非鍵屬性局部相依於主鍵，則該關聯符合 2NF。
-        以上述第 1 部分為例：屬性 D 局部相依於主鍵 { A, B }，不符合 2NF，必須要進行
+        2NF 定義：若且唯若一關聯為 1NF，且非鍵屬性皆完全功能相依於主鍵，則該關聯符合 2NF。
+        以上面第 1 部分為例：屬性 D 局部功能相依於主鍵之子集合 B ，因此不符合 2NF，必須要進行
         第二正規化後，才為 2NF 之關聯。
 三、想廢話
-（一）1. 完全分散（fully destributed）作法：
-     2. 主版（primary copy）作法：
-（二）
+（一）1. 完全分散（fully distributed）作法：
+        (1) 將關聯表會切格成不同的片段
+        (2) 每一片段存放許多份不同站台的拷貝資料
+        (3) 當有更新的需求時，則使用分散式演算法，較為複雜
+     2. 主版（primary copy）作法：（圖在紙張）
+        (1) 若客戶端欲更新資料，則此更新要求會先送到該資料項目的主要站台進行處理
+        (2) 主要站台更新完其資料項目後，即認為該更新動作已經完成
+        (3) 接著主要站台會將相同的更新要求送至其他擁有相同資料項目站台，以進行更新
+        source: https://goo.gl/z87tbN
+                https://goo.gl/oDmDUQ q12
+（二）1. 完全分散（fully distributed）優缺點：
+        優點：系統較為強健
+        缺點：必須執行較複雜的演算法
+     2. 主版（primary copy）優缺點：
+        優點：不需要執行複雜的演算法即可更新資料
+        缺點：系統較弱
 
 四、想廢話
-（一）稱為虛擬資料表（virtual table）的原因是因為該資料表是由 ANSI/SPARC 資料庫三層架
-     構中的外部層（external level）之資料定義語言（data definition language）所產生
-     而成的，並非實際儲存於資料庫中，其主要用途之一為過濾敏感的欄位，只顯示使用者所需或
-     權限內所能檢視的範圍。
+（一）稱為虛擬資料表（virtual table）的原因是因為該資料表是由 SQL 之資料定義語言（data def-
+     inition language）所產生而成的一具名之關聯，並非實際儲存於資料庫中，其主要用途之一為過
+     濾敏感的欄位，只顯示使用者所需或權限內所能檢視的範圍。
 （二）資料庫查詢器將會使用如關聯代數（relational algebra）中的卡氏積（ca..）將其他實體
      或非實體資料表（如：VW1）合併之，例如：利用 DDL 建立一個虛擬資料表 high_salary_emp
      CREATE VIEW AS high_salary_emp
-      SELECT * FROM employee WHERE salary >= 50000
+      SELECT * FROM employee WHERE salary >= 50000 (此題無解)
 五、SQL 語法使用 MySQL 撰寫之
 （一）見紙張
 （二）可能的原因及違反的限制為：
      1. 欲插入的值 EmployeeID 已存在，違反關鍵限制（key constraint）
-     2. 欲插入的值 Telephone# 為 NULL，違反實體完整性限制（intrgrity constraint）
+     2. 我判斷可能是沒有 telephone 也能識別該實體，因為已經決定 PK
      3. 欲插入的值 Age 為負數，違反定義域限制（domain constraint）
 
