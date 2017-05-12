@@ -1,0 +1,38 @@
+一、勒索病毒（Ransomware）是一種「what」，其透過「how」方式，針對「who」於「when」或「where」造成「why」
+
+二、
+（一）Service Set Identifer
+（二）Ir Prevention System
+（三）Internet Protocol Security
+（四）Advanced Encryption Standard
+（五）Pretty Good Privacy
+
+三、
+（一）Dynamic Host Configuration Protocol
+（二）DHCP Client 向 DHCP Server 發出 RARP Request，則 DHCP Server 收到廣播後，根據
+     DHCP Client 的 MAC 位址，給定其 IP。
+
+四、
+（一）CIDR 是透過切割 IP 的主機（Host）區段來使其分配方式更為動態。例如：某機關欲使用一 IP
+     200.200.0.0/21 提供給 1000 台電腦作使用，而透過 CIDR 進行分割，將主機（Host）部份留
+     10 bits，則可達到 200.200.0.0 ~ 200.200.3.255 的網路。
+（二）Classful Addressing 是透過將 IP 以類型來分配網路位址，由網路（Network）及主機（Host）
+     組成，一般分為三類，分別為：
+     1. Class A
+        網路位址為 8 bits，主機位址為 24 bits，範圍為 10.0.0.0 ~ 127
+     2. Class B
+        網路位址為 16 bits，主機位址為 16 bits，範圍為
+     3. Class C
+        網路位址為 24 bits，主機位址為 8 bits，範圍為
+
+五、
+（一）Beacon Frame 包含了如「what」，其用途為「why」
+（二）下列分別說明兩者運作之模式：
+     1. 主動掃描（Active Scanning）
+     2. 被動掃描（Passive Scanning）
+        如：於台北市搜尋市政府之熱點
+
+六、
+（一）Piggybacked Acknowledgement 是一種 TCP 建立三向交握（Three-way handshaking）中
+     的機制，指的是接收端傳送 ACK 給傳送端時同時附加了 SYN 一起傳送給接收端，接收端收到 ACK
+     以及 SYN 後，便可知道第一次傳送的連線請求封包成功到達接收端，且同意進行連線。
