@@ -49,16 +49,18 @@
 
 五、
 （一）VPN 全名為虛擬私人網路（Virtual Private Network），是一種常用於連線中、大型企業，或團
-     體與團體間的私人網路的通訊方法，虛擬私人網路的訊息是透過 Internet 來傳送 Intranet 的訊
-     息，的訊息，利用已加密的通道協定（Tunneling Protocol）來達到訊息的保密、訊息準確性及傳
-     送端認證的安全效果。
+     體與團體間的私人網路的通訊方法，其透過公用的 Internet 來傳送 Intranet 的網路訊息，且利
+     用已加密的通道協定（Tunneling Protocol）來達到訊息的保密、訊息準確性及傳送端認證的安全
+     效果。
 （二）以下分別說明兩者之差異：
      1. 以 IPSec 的 Transport Mode
         (1) 連接方式：端點對端點（Internet 介於兩主機間）
-        (2) 封包結構：IP Header | ESP Header | TCP/UDP Header | Data Payload | ESP Trailer | ESP Auth data
+        (2) 封包結構：IP Header | ESP Header | TCP/UDP Header | Data Payload |
+                    ESP Trailer | ESP Auth data
      2. 以 IPSec 的 Tunnel Mode
         (1) 連接方式：網段對網段（Internet 介於兩 Security Gateway 間）
-        (2) 封包結構： New IP Header | ESP Header | Original IP Header | TCP/UDP Header | Data Payload | ESP Trailer | ESP Auth data
+        (2) 封包結構： New IP Header | ESP Header | Original IP Header |
+                     TCP/UDP Header | Data Payload | ESP Trailer | ESP Auth data
      source: https://goo.gl/N0liRX
 （三）以下分別說明兩者之差異：
      1. 以 IPSec 技術建立的 VPN
