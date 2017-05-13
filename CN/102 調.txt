@@ -55,12 +55,17 @@
 （二）以下分別說明兩者之差異：
      1. 以 IPSec 的 Transport Mode
         (1) 連接方式：端點對端點（Internet 介於兩主機間）
-        (2) 封包結構：IP Header | ESP Header | TCP/UDP Header | Data Payload |
-                    ESP Trailer | ESP Auth data
+        (2) 封包結構：
+        ╔═══════════╦════════════╦════════════════╦══════════════╦═════════════╦═══════════════╗
+        ║ IP Header ║ ESP Header ║ TCP/UDP Header ║ Data Payload ║ ESP Trailer ║ ESP Auth data ║
+        ╚═══════════╩════════════╩════════════════╩══════════════╩═════════════╩═══════════════╝
+
      2. 以 IPSec 的 Tunnel Mode
         (1) 連接方式：網段對網段（Internet 介於兩 Security Gateway 間）
-        (2) 封包結構： New IP Header | ESP Header | Original IP Header |
-                     TCP/UDP Header | Data Payload | ESP Trailer | ESP Auth data
+        (2) 封包結構：
+        ╔═══════════════╦════════════╦════════════════════╦════════════════╦══════════════╦═════════════╦═══════════════╗
+        ║ New IP Header ║ ESP Header ║ Original IP Header ║ TCP/UDP Header ║ Data Payload ║ ESP Trailer ║ ESP Auth data ║
+        ╚═══════════════╩════════════╩════════════════════╩════════════════╩══════════════╩═════════════╩═══════════════╝
      source: https://goo.gl/N0liRX
 （三）以下分別說明兩者之差異：
      1. 以 IPSec 技術建立的 VPN

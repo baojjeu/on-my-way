@@ -1,38 +1,78 @@
-一、勒索病毒（Ransomware）是一種「what」，其透過「how」方式，針對「who」於「when」或「where」造成「why」
+一、勒索病毒（Ransomware）是一種新型的攻擊方式，攻擊者透過金鑰加密技術將檔案加密，並要求被害者
+   支付鉅額之贖金，此外還規定若於期限之內無法交付，即會將可解密之金鑰進行銷毀，被加密之重要檔案
+   將難以復原。
 
 二、
-（一）Service Set Identifer
-（二）Ir Prevention System
+（一）Service Set Identifier
+（二）Intrusion Prevention System
 （三）Internet Protocol Security
 （四）Advanced Encryption Standard
 （五）Pretty Good Privacy
 
 三、
 （一）Dynamic Host Configuration Protocol
-（二）DHCP Client 向 DHCP Server 發出 RARP Request，則 DHCP Server 收到廣播後，根據
-     DHCP Client 的 MAC 位址，給定其 IP。
+（二）（圖）DHCP Client 和 DHCP Server 之間的互動與訊息之傳遞於以下四步驟：
+     1. DHCP Discover
+        Client 向網路發出 DHCP Discover 廣播封包，詢問目前有無 Server 可以分配 IP 位址
+        給它。
+     2. DHCP Offer
+        當有 Server 收到 Client 的 DHCP Discover 廣播封包後，它會從尚未租用的位址範圍內，
+        選擇其中之一個 IP 位址，連同其他相關參數（例如：網路遮罩、閘道器配置等網路組態資訊）
+        利用 DHCP Offer 封包回應給 Client。
+     3. DHCP Request
+        Client 從眾多 Server 的回應中挑選其中一個 DHCP Offer，並透過發送 ARP 封包查詢網
+        路上有其他機器使用該 IP 位址，若發現已經被佔用，則 Client 會發送一個 DHCP Decline
+        封包給 Server，代表拒絕接收該 Offer，並重新發送 DHCP Discover 封包。反之，若該 IP
+        為可用，則 Client 將接受該 Offer，並向網路發送 DHCP Request 告訴所有 Server 它
+        將使用哪一個 Server 所提供的 IP。
+     4. DHCP Acknowledgement
+        若 Server 接受 Client 之 DHCP Request 後，則發送一個 DHCP Ack 回應 Client，
+        以確認該租約生效。反之，則發送 DHCP Nacknowledgement
 
 四、
-（一）CIDR 是透過切割 IP 的主機（Host）區段來使其分配方式更為動態。例如：某機關欲使用一 IP
-     200.200.0.0/21 提供給 1000 台電腦作使用，而透過 CIDR 進行分割，將主機（Host）部份留
-     10 bits，則可達到 200.200.0.0 ~ 200.200.3.255 的網路。
+（一）CIDR 是透過子網路遮罩，將多個等級較低的網路合併成一個較大的網路。換句話說，就是從網路位址
+     借用幾個位元當作機器位址（Host）例如：某機關需要 2000 個 IP 位址，該數量介於 Class B
+     與 Class C 之間（65535 個和 256 個），若直接申請 Class B 來使用，則會浪費許多空間，
+     因此若透過 CIDR 的方式，可分配一 21 bits 的網路位址，主機 11 bits 的 IP，共可容納
+     2048 個主機，與所需的 2000 個 IP 數相當接近。（此例等同於向將一個 Class C 的網路位址
+     主機向網路借 3 bits）
 （二）Classful Addressing 是透過將 IP 以類型來分配網路位址，由網路（Network）及主機（Host）
      組成，一般分為三類，分別為：
      1. Class A
-        網路位址為 8 bits，主機位址為 24 bits，範圍為 10.0.0.0 ~ 127
+        網路位址為 8 bits，主機位址為 24 bits，範圍為 1.0.0.0 ~ 127.255.255.255，網路
+        遮罩為 255.0.0.0，可容納主機數為 2^24 - 2。
      2. Class B
-        網路位址為 16 bits，主機位址為 16 bits，範圍為
+        網路位址為 16 bits，主機位址為 16 bits，範圍為 128.0.0.0 ~ 191.255.255.255，
+        網路遮罩為 255.255.0.0，可容納主機數為 2^16 - 2。
      3. Class C
-        網路位址為 24 bits，主機位址為 8 bits，範圍為
+        網路位址為 24 bits，主機位址為 8 bits，範圍為 192.0.0.0 ~ 223.255.255.255，
+        網路遮罩為 255.255.255.0，可容納主機為 2^8 - 2。
 
 五、
-（一）Beacon Frame 包含了如「what」，其用途為「why」
+（一）Beacon Frame 包含了 SSID 訊息、支援的連線速率以及此 AP 的 MAC 位址等連線資訊。用途為
+     讓工作站知道加入某個 BSS 所需的參數，以便進行通訊。
 （二）下列分別說明兩者運作之模式：
      1. 主動掃描（Active Scanning）
+        設備以主動的方式在每個通訊頻道間發出 Probe Request Frame，請求某個 AP 回應。AP 收
+        到後回覆 Probe Response Frame，告知設備相關的連線資訊，如：支援的連線速率。
      2. 被動掃描（Passive Scanning）
-        如：於台北市搜尋市政府之熱點
+        指的是設備在頻道清單中的頻道間不斷做切換，等候 AP 發送 Beacon Frame。設備收到 Bec-
+        on Frame 後，便記錄其 BSS 參數資料，以便進行通訊。
 
 六、
-（一）Piggybacked Acknowledgement 是一種 TCP 建立三向交握（Three-way handshaking）中
-     的機制，指的是接收端傳送 ACK 給傳送端時同時附加了 SYN 一起傳送給接收端，接收端收到 ACK
-     以及 SYN 後，便可知道第一次傳送的連線請求封包成功到達接收端，且同意進行連線。
+（一）Piggybacked Acknowledgement 指的是 Receiver 不會馬上送出 ACK Frame，而是等到它有
+     訊息要發給 Sender 時，才把 ACK Frame 附加在要欲傳送的訊息之中。好處是能夠節省網路流量
+     ，但若 Receiver 都沒有訊息要傳送時，就容易造成服務的阻塞。
+（二）Cumulative Acknowledgement 指的是 Reveiver 不會針對 Sender 的每一個傳送過去的訊息
+     發送 ACK，而是以累積的方式，一個 ACK 確認訊息可以同時確認先前 Sender 發給 Receiver 的
+     息為已成功接收，為 TCP 採用之方法。
+（三）Premature Timeout 指的是 Sender 的 Timer 間隔設定過短，在正常情況下未能及時收到 Re-
+     ceiver 發送的 ACK 確認訊息，因而判定為 Timeout 並重新發送訊息，造成不必要的重傳，使無
+     用的 Frame 阻塞網路，浪費頻寬。
+（四）解決的方法為將過去的 RTT（Round-trip Time）做一個平均，得到的平均值乘以一個常數
+     α，設其為 SampleRTT，加上前一次預估之 RTT 乘以 1 - α，設其為 EstimatedRTT
+     （α 是 0.125），可得公式 EstimatedRTT = (1 - α) * EstimatedRTT + α * SampleRTT，
+     這裡可知公式中 EstimatedRTT 所佔為 0.875（1 - 0.125），SampleRTT 佔 0.125。
+     而因 Timeout 要確保比 RTT 大，故該 EstimatedRTT 還要加上一個標準差以作緩衝，標準差設
+     為 DevRTT（Deviation RTT），DevRTT = (1-β) * DevRTT + β * |SampleRTT - EstimatedRTT|
+     （TCP裡設定 β = 0.25），則最後的 Timeout Interval 為 EstimateRTT + 4 * DevRTT
