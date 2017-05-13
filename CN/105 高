@@ -35,7 +35,7 @@
      與 Class C 之間（65535 個和 256 個），若直接申請 Class B 來使用，則會浪費許多空間，
      因此若透過 CIDR 的方式，可分配一 21 bits 的網路位址，主機 11 bits 的 IP，共可容納
      2048 個主機，與所需的 2000 個 IP 數相當接近。（此例等同於向將一個 Class C 的網路位址
-     主機向網路借 3 bits）
+     ，主機向網路借 3 bits）
 （二）Classful Addressing 是透過將 IP 以類型來分配網路位址，由網路（Network）及主機（Host）
      組成，一般分為三類，分別為：
      1. Class A
