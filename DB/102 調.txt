@@ -52,7 +52,7 @@
 （一）稱為虛擬資料表（virtual table）的原因是因為該資料表是由 SQL 之資料定義語言（data def-
      inition language）所產生而成的一具名之關聯，並非實際儲存於資料庫中，其主要用途之一為過
      濾敏感的欄位，只顯示使用者所需或權限內所能檢視的範圍。
-（二）資料庫查詢器將會使用如關聯代數（relational algebra）中的卡氏積（Cartision Product）
+（二）資料庫查詢器將會使用如關聯代數（relational algebra）中的卡氏積（Cartesion Product）
      將其他實體或非實體資料表（如：VW1）合併之，例如：利用 DDL 建立一個虛擬資料表 high_salary_emp
      CREATE VIEW AS high_salary_emp
       SELECT * FROM employee WHERE salary >= 50000 (此題無解)
