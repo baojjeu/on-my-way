@@ -1,0 +1,68 @@
+一、
+（一）是。因為若為多對多關係，則同一個問題可以用在不同的課程。
+（二）否。每個課程只能有若干題問題，非他媽的問「卷」。
+（三）否。因為學生與該課程所修得的分數與問卷回答之內容他媽不相關。（合併了就不符合 2NF）
+（四）1. 優點：節省儲存空間
+     2. 缺點：合併了就不符合原本各關聯的 BCNF
+（五）Teacher(Tid, tname)
+     Course(Cid, Cname, Tid)
+     Student(Sid, Sname)
+     Question(Qid, Qtitle)
+     CS(Cid, Sid, score)
+     CSQ(Cid, Sid, Qid, answer)
+     CQ(Cid, Qid, Qseq)
+(六) 以下使用 MySQL 語法作答：
+     SELECT c.Cname, cq.Qseq
+     FROM CQ AS cq, Course AS c
+     WHERE cq.Qid = 3 AND c.Cid = cq.Cid
+（七）以下使用 MySQL 語法作答：
+     SELECT MAX(answer) AS 最大滿意度,
+            MIN(answer) AS 最小滿意度,
+            AVG(answer) AS 平均滿意度
+     FROM CSQ AS csq,
+          CQ AS cq
+     WHERE csq.Cid = 2 AND
+           cq.Qseq = 3 AND
+           cq.Cid = csq.Cid
+（八）SELECT AVG(answer) AS 平均滿意度
+     FROM Student AS s,
+          CSQ AS csq,
+          Course AS c
+     WHERE s.Sname = 'Mary' AND
+           c.Cname = 'DBMS' AND
+           s.Sid = csq.Sid AND
+           c.Cid = csq.Cid;
+（九）SELECT c.Cname,
+            cq.Qseq,
+            AVG(csq.answer) AS 平均滿意度
+     FROM Teacher AS t,
+          Course AS c,
+          CSQ AS csq,
+          CQ AS cq
+     WHERE t.Tname = 'Abby' AND
+           t.Tid = c.Tid AND
+           c.Cid = csq.Cid AND
+           csq.Cid = cq.Cid AND
+           csq.Qid = cq.Qid
+     GROUP BY c.Cname, cq.Qseq
+     ORDER BY c.Cname, cq.Qseq ASC;
+
+二、見紙張
+三、
+（一）1. 建立資料庫系統管理者帳號
+     2. 建立 View
+     3. 使用 DCL 建立或移除使用者操作權限
+
+（二）1. CREATE VIEW 景觀名稱
+        AS SELECT first_name, Country
+           FROM Employee;
+     2. GRANT SELECT, UPDATE
+        ON employee(first_name, last_name)
+        TO [使用者 | Public] （針對某個使用者或是全體使用者）
+
+        REVOKE SELECT, UPDATE
+        ON employee
+        FROM Baozi;
+
+        ALTER PASSWORD OF 使用者 TO <new password>
+        ALTER PASSWORD <old password> TO <new password>
